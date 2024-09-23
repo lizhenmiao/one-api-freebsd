@@ -13,7 +13,7 @@ jobs:
       - name: compare versions
         run: |
           export REMOTEVERSION=$(wget -qO- https://api.github.com/repos/songquanpeng/one-api/tags | gawk -F '["v]' '/v0/{print "v"$5;exit}')
-          export LOCALVERSION=$(curl --location --silent --fail --show-error "https://api.github.com/repos/k0baya/one-api-freebsd/releases/latest" | grep -oP '"tag_name":\s*"\K[^"]+')
+          export LOCALVERSION=$(curl --location --silent --fail --show-error "https://api.github.com/repos/lizhenmiao/one-api-freebsd/releases/latest" | grep -oP '"tag_name":\s*"\K[^"]+')
           bash compare.sh
           
       - name: Trigger release
@@ -23,7 +23,7 @@ jobs:
           github-token: ${{ secrets.PAT_TOKEN }}
           script: |
               await github.rest.actions.createWorkflowDispatch({
-              owner: 'k0baya',
+              owner: 'lizhenmiao',
               repo: 'one-api-freebsd',
               workflow_id: 'build.yml',
               ref: 'main'
